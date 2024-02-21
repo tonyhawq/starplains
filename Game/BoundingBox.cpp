@@ -6,6 +6,7 @@ OBB::OBB(maf::fvec2 pos, maf::fvec2 dim, float dir)
 	: pos(pos), dim(dim), dir(dir)
 {
 	this->calculateCorners();
+	this->radiusSqr = this->dim.x * this->dim.x + this->dim.y * this->dim.y;
 }
 
 void OBB::calculateCorners()
@@ -44,6 +45,7 @@ void OBB::setPos(maf::fvec2 pos)
 void OBB::resize(maf::fvec2 dim)
 {
 	this->dim = dim;
+	this->radiusSqr = this->dim.x * this->dim.x + this->dim.y * this->dim.y;
 	this->calculateCorners();
 }
 
@@ -130,10 +132,10 @@ bool OBB::_AABB(const OBB& other) const
 
 bool OBB::collides(const OBB& other) const
 {
-	// acceptable not sameness ?
-	if (fabsf(this->dir - other.dir) <= 0.1)
+	float distSqr = this->pos.distSqr(other.pos);
+	if (distSqr > this->radiusSqr && distSqr > other.radiusSqr)
 	{
-		return this->_AABB(other);
+		return false;
 	}
 	// im just gonna copy the code eat my ass
 	float calculatedSin = sinf(this->dir);

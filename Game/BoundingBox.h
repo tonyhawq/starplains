@@ -56,6 +56,10 @@ private:
 	/// </summary>
 	float dir;
 	/// <summary>
+	/// radius of the bounding circle
+	/// </summary>
+	float radiusSqr;
+	/// <summary>
 	/// AABB collision for when the angles aren't an issue (faster :) )
 	/// </summary>
 	bool _AABB(const OBB& other) const;

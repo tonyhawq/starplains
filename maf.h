@@ -19,6 +19,14 @@ namespace maf
 		{
 			return sqrtf((x * x) + (y * y));
 		}
+		float distSqr(const fvec2& b) const
+		{
+			return (this->x - b.x) * (this->x - b.x) + (this->y - b.y) * (this->y - b.y);
+		}
+		float dist(const fvec2& b) const
+		{
+			return sqrtf((this->x - b.x) * (this->x - b.x) + (this->y - b.y) * (this->y - b.y));
+		}
 		float dot(const fvec2& b) const
 		{
 			/*float amag = this->mag();
@@ -61,6 +69,21 @@ namespace maf
 		fvec2 operator*(const float& other) const
 		{
 			return { this->x * other, this->y * other };
+		}
+		void operator+=(const fvec2& other)
+		{
+			this->x += other.x;
+			this->y += other.y;
+		}
+		void operator-=(const fvec2& other)
+		{
+			this->x -= other.x;
+			this->y -= other.y;
+		}
+		void operator*=(const float& other)
+		{
+			this->x *= other;
+			this->y *= other;
 		}
 	};
 	struct fvec4
