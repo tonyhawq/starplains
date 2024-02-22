@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	b2Vec2 gravity(0.0f, -10.0f);
 	b2World world(gravity);
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -100.0f);
+	groundBodyDef.position.Set(0.0f, -200.0f);
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(500.0f, 100.0f);
@@ -54,22 +54,26 @@ int main(int argc, char* argv[])
 				{
 				case SDLK_w:
 				{
-					camera.y++;
+					b2Vec2 newOrigin = { 0, 1 };
+					world.ShiftOrigin(newOrigin);
 					break;
 				}
 				case SDLK_a:
 				{
-					camera.x++;
+					b2Vec2 newOrigin = { 1, 0 };
+					world.ShiftOrigin(newOrigin);
 					break;
 				}
 				case SDLK_s:
 				{
-					camera.y--;
+					b2Vec2 newOrigin = { 0, -1 };
+					world.ShiftOrigin(newOrigin);
 					break;
 				}
 				case SDLK_d:
 				{
-					camera.x--;
+					b2Vec2 newOrigin = { -1, 0 };
+					world.ShiftOrigin(newOrigin);
 					break;
 				}
 				}
@@ -81,7 +85,7 @@ int main(int argc, char* argv[])
 		b2Body* iter = world.GetBodyList();
 		while (iter)
 		{
-			b2Fixture* fix = body->GetFixtureList();
+			b2Fixture* fix = iter->GetFixtureList();
 			while (fix)
 			{
 				b2Shape* shape = fix->GetShape();
@@ -92,13 +96,14 @@ int main(int argc, char* argv[])
 				{
 					b2PolygonShape* concrete = (b2PolygonShape*)shape;
 					b2Vec2* verts = (b2Vec2*)malloc(sizeof(b2Vec2) * concrete->m_count);
+					if (!verts)
+					{
+						return 1;
+					}
 					for (int i = 0; i < concrete->m_count; i++)
 					{
-						verts[i] = body->GetWorldPoint(concrete->m_vertices[i]);
-						verts[i].x += camera.x;
-						verts[i].y += camera.y;
+						verts[i] = iter->GetWorldPoint(concrete->m_vertices[i]);
 						verts[i] *= conv;
-						printf("%f, %f\n", verts[i].x, verts[i].y);
 					}
 					GPU_Polygon(targ, concrete->m_count, (float*)(verts), { 255, 0, 0, 255 });
 					break;
