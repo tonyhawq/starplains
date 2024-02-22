@@ -3,8 +3,8 @@
 #include <chrono>
 #include <box2d.h>
 
-#include "maf.h"
-#include "Game/Timer.h"
+#include "src/shared/maf.h"
+#include "src/shared/Timer.h"
 
 int main(int argc, char* argv[])
 {
