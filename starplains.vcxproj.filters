@@ -21,12 +21,18 @@
     <ClCompile Include="src\shared\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\shared\spLua\spLua.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\shared\maf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\shared\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shared\spLua\spLua.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
