@@ -9,6 +9,11 @@ spLua::spLua()
 	luaL_openlibs(this->L);
 }
 
+spLua::~spLua()
+{
+	lua_close(this->L);
+}
+
 int spLua::compile(const std::string& code)
 {
 	return luaL_loadbuffer(this->L, code.c_str(), code.length(), "LuaState");
