@@ -20,5 +20,6 @@ int main(int argc, char* argv[])
 		printf("%s", lua_tostring(lua.L, -1));
 		lua_pop(lua.L, 0);
 	}
+	lua.stop();
 	return 0;
 }

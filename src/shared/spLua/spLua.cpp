@@ -36,3 +36,9 @@ int spLua::call()
 {
 	return lua_pcall(this->L, 0, 0, 0);
 }
+
+void spLua::reset()
+{
+	lua_close(this->L);
+	this->L = lua_open();
+}
