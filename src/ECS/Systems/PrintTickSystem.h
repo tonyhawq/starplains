@@ -15,9 +15,9 @@ namespace ECS
 			inline PrintTickSystem(World* world)
 				: System(world)
 			{
-				world->subscribeTargeted(ECS::Components::PrintTickComponent::type, ECS::Events::OnTickEvent::type, OnTick);
+				world->subscribeBroadcast(ECS::Events::OnTickEvent::type, OnTick);
 			}
-			inline static void OnTick(const Entity* entity, ECS::Events::BaseEvent* args)
+			inline static void OnTick(World* world, const Entity* entity, ECS::Events::BaseEvent* args)
 			{
 				// just cast ECS::Events::BaseEvent to needed type. in this case, should be ECS::Events::OnTickEvent.
 			}

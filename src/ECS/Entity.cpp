@@ -8,13 +8,11 @@ ECS::Entity::Entity(World* world, UUID_t id)
 	_ASSERT(world);
 }
 
-template <class T>
-T* ECS::Entity::getComponent()
+ECS::Component* ECS::Entity::getComponent(ComponentType cType)
 {
-	ComponentType typeID = typeid(T).hash_code();
-	if (!this->components.count(typeID))
+	if (!this->components.count(cType))
 	{
 		return NULL;
 	}
-	return this->components[typeID];
+	return this->components[cType].get();
 }

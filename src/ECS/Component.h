@@ -1,12 +1,14 @@
 #pragma once
 
-class Entity;
-
-/// <summary>
-/// Components strictly have NO functions or logic inside of them. All component related things are handled by Systems.
-/// </summary>
-struct Component
+namespace ECS
 {
-	Entity* parent;
-};
+	class Entity;
 
+	/// <summary>
+	/// Components strictly have NO functions or logic inside of them. All component related things are handled by Systems.
+	/// </summary>
+	struct Component
+	{
+		Entity* parent;
+	};
+}

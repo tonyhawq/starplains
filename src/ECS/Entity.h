@@ -16,8 +16,7 @@ namespace ECS
 
 		Entity* next;
 
-		template<class T>
-		T* getComponent();
+		Component* getComponent(ComponentType cType);
 
 		inline UUID_t id() { return this->UUID; }
 	//private: // why be so secretive?

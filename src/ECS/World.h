@@ -15,6 +15,8 @@
 
 namespace ECS
 {
+	using EventCallbackFunc = std::function<void(World*, const Entity*, Events::BaseEvent*)>;
+
 	class World
 	{
 	public:
@@ -22,12 +24,14 @@ namespace ECS
 
 		Entity* createEntity();
 		// don't hold onto this pointer, no guarantees where it'll end up
-		std::shared_ptr<Component> addComponentToEntity(Entity* entity, std::shared_ptr<Component> component);
+		std::shared_ptr<Component> addComponentToEntity(Entity* entity, std::shared_ptr<Component> component, ComponentType cType);
 		
+		const std::unordered_map<UUID_t, Entity*>& getEntitiesOwning(ComponentType cType);
+
 		void registerSystem(std::shared_ptr<System::System> system);
 
-		void subscribeTargeted(ComponentType cType, EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback);
-		void subscribeBroadcast(EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback);
+		void subscribeTargeted(ComponentType cType, EventType eType, EventCallbackFunc callback);
+		void subscribeBroadcast(EventType eType, EventCallbackFunc callback);
 
 		void raiseBroadcast(EventType eType, ECS::Events::BaseEvent* args);
 		void raiseEvent(ComponentType cType, EventType eType, ECS::Entity* raised, ECS::Events::BaseEvent* args);
@@ -37,12 +41,12 @@ namespace ECS
 		/// <summary>
 		/// list of callback functions as added by subscribeBroadcast();
 		/// </summary>
-		std::unordered_map<EventType, std::vector<std::function<void(const Entity*, Events::BaseEvent*)>>> broadcastListeners;
+		std::unordered_map<EventType, std::vector<EventCallbackFunc>> broadcastListeners;
 		std::unordered_map<ComponentType, std::unordered_map<UUID_t, Entity*>> componentsByOwner;
 		/// <summary>
 		/// list of callback functions as added by subscribeTargeted();
 		/// </summary>
-		std::unordered_map<EventType, std::unordered_map<ComponentType, std::vector<std::function<void(const Entity*, Events::BaseEvent*)>>>> targetedListeners;
+		std::unordered_map<EventType, std::unordered_map<ComponentType, std::vector<EventCallbackFunc>>> targetedListeners;
 		/// <summary>
 		/// all entities
 		/// </summary>

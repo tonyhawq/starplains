@@ -23,27 +23,29 @@ ECS::Entity* ECS::World::createEntity()
 	return this->list;
 }
 
+#include "Components/PrintComponent.h"
 
-std::shared_ptr<Component> ECS::World::addComponentToEntity(Entity* entity, std::shared_ptr<Component> component)
+std::shared_ptr<ECS::Component> ECS::World::addComponentToEntity(Entity* entity, std::shared_ptr<Component> component, ComponentType cType)
 {
-	ComponentType cType = typeid(component.get()).hash_code();
 	entity->components[cType] = component;
+	printf("added component to %zu, adress %p\n", entity->id(), entity);
 	this->componentsByOwner[cType][entity->id()] = entity;
+	printf("after adding: %zu results for id %zu\n", this->componentsByOwner[cType].count(entity->id()), entity->id());
 	return component;
 }
 
 void ECS::World::registerSystem(std::shared_ptr<System::System> system)
 {
-	//size_t typeID = typeid(T).hash_code();
-	//this->systems[typeID] = std::make_shared<T>(this);
+	size_t typeID = typeid(system.get()).hash_code();
+	this->systems[typeID] = system;
 }
 
-void ECS::World::subscribeTargeted(ComponentType cType, EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback)
+void ECS::World::subscribeTargeted(ComponentType cType, EventType eType, EventCallbackFunc callback)
 {
 	this->targetedListeners[eType][cType].push_back(callback);
 }
 
-void ECS::World::subscribeBroadcast(EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback)
+void ECS::World::subscribeBroadcast(EventType eType, EventCallbackFunc callback)
 {
 	this->broadcastListeners[eType].push_back(callback);
 }
@@ -53,7 +55,7 @@ void ECS::World::raiseBroadcast(EventType eType, ECS::Events::BaseEvent* args)
 	auto& listeners = this->broadcastListeners[eType];
 	for (auto& func : listeners)
 	{
-		func(NULL, args);
+		func(this, NULL, args);
 	}
 }
 
@@ -62,8 +64,13 @@ void ECS::World::raiseEvent(ComponentType cType, EventType eType, ECS::Entity* r
 	auto& listeners = this->targetedListeners[eType][cType];
 	for (auto& func : listeners)
 	{
-		func(raised, args);
+		func(this, raised, args);
 	}
+}
+
+const std::unordered_map<ECS::UUID_t, ECS::Entity*>& ECS::World::getEntitiesOwning(ComponentType cType)
+{
+	return this->componentsByOwner[cType];
 }
 
 void ECS::World::update()
@@ -71,6 +78,6 @@ void ECS::World::update()
 	this->tick++;
 	this->timer.reset();
 	ECS::Events::OnTickEvent e;
-	this->raiseBroadcast(typeid(ECS::Events::OnTickEvent).hash_code(), &e);
+	this->raiseBroadcast(ECS::Events::OnTickEvent::type, &e);
 	this->timer.time();
 }
