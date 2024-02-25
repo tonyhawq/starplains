@@ -1,6 +1,21 @@
-print("hello, Sussy!")
 data:add({
     {
-        name = "Test1"
+        name = "PrototypeOne",
+        components =
+        {
+            {
+                name = "PrintComponent",
+                string = "Hello World!",
+            }
+        }
+    },
+    {
+        name = "PrototypeTwo",
+        components =
+        {
+            {
+                name = "PrintTickComponent",
+            }
+        }
     }
 })

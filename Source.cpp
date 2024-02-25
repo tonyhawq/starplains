@@ -1,26 +1,18 @@
 #include <SDL_gpu.h>
 #include <vector>
 #include <chrono>
-#include <box2d.h>
 #include <typeinfo>
 
-#include "src/shared/maf.h"
-#include "src/shared/Timer.h"
-#include "src/shared/spLua/spLua.h"
+#include "src/ECS/World.h"
+
+#include "src/ECS/Systems/PrintSystem.h"
+#include "src/ECS/Systems/PrintTickSystem.h"
 
 int main(int argc, char* argv[])
 {
-	spLua lua;
-	if (lua.loadFile("content/prototypes/entry.lua", {"content/lualib/core"}))
-	{
-		printf("%s", lua_tostring(lua.L, -1));
-		lua_pop(lua.L, 0);
-	}
-	if (lua.call())
-	{
-		printf("%s", lua_tostring(lua.L, -1));
-		lua_pop(lua.L, 0);
-	}
-	lua.reset();
+	ECS::World world;
+	world.registerSystem(std::make_shared<ECS::System::PrintSystem>(&world));
+	world.registerSystem(std::make_shared<ECS::System::PrintTickSystem>(&world));
+	world.update(); // calls on_tick events
 	return 0;
 }

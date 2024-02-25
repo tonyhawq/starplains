@@ -137,15 +137,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECS\Component.cpp" />
+    <ClCompile Include="src\ECS\Components\TypeDefines.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="src\ECS\Events\Shared.cpp" />
     <ClCompile Include="src\shared\spLua\spLua.cpp" />
     <ClCompile Include="src\shared\Timer.cpp" />
     <ClCompile Include="src\ECS\World.cpp" />
     <ClCompile Include="src\ECS\System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ECS\Components\PrintComponent.h" />
+    <ClInclude Include="src\ECS\Components\PrintTickComponent.h" />
+    <ClInclude Include="src\ECS\Defines.h" />
+    <ClInclude Include="src\ECS\Events\Shared.h" />
+    <ClInclude Include="src\ECS\Systems\PrintSystem.h" />
+    <ClInclude Include="src\ECS\Systems\PrintTickSystem.h" />
+    <ClInclude Include="src\ECS\Event.h" />
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Entity.h" />
     <ClInclude Include="src\shared\spLua\spLua.h" />
