@@ -7,12 +7,36 @@ ECS::World::World()
 
 }
 
+
+ECS::Entity* ECS::World::createEntity()
+{
+	if (!this->list)
+	{
+		this->list = new Entity(this, currentUUID++);
+	}
+	else
+	{
+		Entity* next = this->list->next;
+		this->list = new Entity(this, currentUUID++);
+		this->list->next = next;
+	}
+	return this->list;
+}
+
+
+std::shared_ptr<Component> ECS::World::addComponentToEntity(Entity* entity, std::shared_ptr<Component> component)
+{
+	ComponentType cType = typeid(component.get()).hash_code();
+	entity->components[cType] = component;
+	this->componentsByOwner[cType][entity->id()] = entity;
+	return component;
+}
+
 void ECS::World::registerSystem(std::shared_ptr<System::System> system)
 {
 	//size_t typeID = typeid(T).hash_code();
 	//this->systems[typeID] = std::make_shared<T>(this);
 }
-
 
 void ECS::World::subscribeTargeted(ComponentType cType, EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback)
 {

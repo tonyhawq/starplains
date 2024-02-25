@@ -20,6 +20,10 @@ namespace ECS
 	public:
 		World();
 
+		Entity* createEntity();
+		// don't hold onto this pointer, no guarantees where it'll end up
+		std::shared_ptr<Component> addComponentToEntity(Entity* entity, std::shared_ptr<Component> component);
+		
 		void registerSystem(std::shared_ptr<System::System> system);
 
 		void subscribeTargeted(ComponentType cType, EventType eType, std::function<void(const Entity*, Events::BaseEvent*)> callback);
@@ -34,6 +38,7 @@ namespace ECS
 		/// list of callback functions as added by subscribeBroadcast();
 		/// </summary>
 		std::unordered_map<EventType, std::vector<std::function<void(const Entity*, Events::BaseEvent*)>>> broadcastListeners;
+		std::unordered_map<ComponentType, std::unordered_map<UUID_t, Entity*>> componentsByOwner;
 		/// <summary>
 		/// list of callback functions as added by subscribeTargeted();
 		/// </summary>
@@ -45,5 +50,6 @@ namespace ECS
 		std::unordered_map<SystemType, std::shared_ptr<System::System>> systems;
 		Timer timer;
 		size_t tick;
+		UUID_t currentUUID = 1;
 	};
 }

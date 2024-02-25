@@ -1,5 +1,13 @@
 #include "Entity.h"
 
+#include "World.h"
+
+ECS::Entity::Entity(World* world, UUID_t id)
+	: world(world), next(NULL), UUID(id)
+{
+	_ASSERT(world);
+}
+
 template <class T>
 T* ECS::Entity::getComponent()
 {
