@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 spLua::spLua()
 	: L(lua_open())
@@ -21,6 +22,8 @@ int spLua::compile(const std::string& code)
 
 int spLua::loadFile(const std::string& filepath, const std::vector<std::string>& dependencies)
 {
+	std::filesystem::path cwd = std::filesystem::current_path();
+	printf("%s\n", cwd.string().c_str());
 	std::fstream file(filepath);
 	std::stringstream sstream;
 	for (const auto& dep : dependencies)

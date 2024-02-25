@@ -2,7 +2,7 @@
 
 void ECS::Prototypes::PrototypeLoader::loadContent()
 {
-	if (lua.loadFile("../content/prototypes/entry.lua", { "content/lualib/core" }))
+	if (lua.loadFile("content/prototypes/entry.lua", { "content/lualib/core" }))
 	{
 		printf("%s\n", lua_tostring(lua.L, -1));
 		lua_pop(lua.L, 1);
