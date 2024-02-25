@@ -4,12 +4,15 @@
 #include <typeinfo>
 
 #include "src/ECS/World.h"
+#include "src/ECS/Prototypes/PrototypeLoader.h"
 
 #include "src/ECS/Systems/PrintSystem.h"
 #include "src/ECS/Systems/PrintTickSystem.h"
 
 int main(int argc, char* argv[])
 {
+	ECS::Prototypes::PrototypeLoader loader;
+	loader.loadContent();
 	ECS::World world;
 	world.registerSystem(std::make_shared<ECS::System::PrintSystem>(&world), typeid(ECS::System::PrintSystem).hash_code());
 	world.registerSystem(std::make_shared<ECS::System::PrintTickSystem>(&world), typeid(ECS::System::PrintTickSystem).hash_code());

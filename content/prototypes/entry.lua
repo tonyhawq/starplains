@@ -1,3 +1,5 @@
+print("hello from entry.lua!")
+
 data:add({
     {
         name = "PrototypeOne",

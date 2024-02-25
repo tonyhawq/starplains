@@ -112,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +142,7 @@
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\ECS\Events\Shared.cpp" />
+    <ClCompile Include="src\ECS\Prototypes\PrototypeLoader.cpp" />
     <ClCompile Include="src\shared\spLua\spLua.cpp" />
     <ClCompile Include="src\shared\Timer.cpp" />
     <ClCompile Include="src\ECS\World.cpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="src\ECS\Components\PrintTickComponent.h" />
     <ClInclude Include="src\ECS\Defines.h" />
     <ClInclude Include="src\ECS\Events\Shared.h" />
+    <ClInclude Include="src\ECS\Prototypes\PrototypeLoader.h" />
     <ClInclude Include="src\ECS\Systems\PrintSystem.h" />
     <ClInclude Include="src\ECS\Systems\PrintTickSystem.h" />
     <ClInclude Include="src\ECS\Event.h" />
