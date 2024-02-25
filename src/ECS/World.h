@@ -28,7 +28,7 @@ namespace ECS
 		
 		const std::unordered_map<UUID_t, Entity*>& getEntitiesOwning(ComponentType cType);
 
-		void registerSystem(std::shared_ptr<System::System> system);
+		void registerSystem(std::shared_ptr<System::System> system, SystemType sType);
 
 		void subscribeTargeted(ComponentType cType, EventType eType, EventCallbackFunc callback);
 		void subscribeBroadcast(EventType eType, EventCallbackFunc callback);

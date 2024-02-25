@@ -28,16 +28,13 @@ ECS::Entity* ECS::World::createEntity()
 std::shared_ptr<ECS::Component> ECS::World::addComponentToEntity(Entity* entity, std::shared_ptr<Component> component, ComponentType cType)
 {
 	entity->components[cType] = component;
-	printf("added component to %zu, adress %p\n", entity->id(), entity);
 	this->componentsByOwner[cType][entity->id()] = entity;
-	printf("after adding: %zu results for id %zu\n", this->componentsByOwner[cType].count(entity->id()), entity->id());
 	return component;
 }
 
-void ECS::World::registerSystem(std::shared_ptr<System::System> system)
+void ECS::World::registerSystem(std::shared_ptr<System::System> system, SystemType sType)
 {
-	size_t typeID = typeid(system.get()).hash_code();
-	this->systems[typeID] = system;
+	this->systems[sType] = system;
 }
 
 void ECS::World::subscribeTargeted(ComponentType cType, EventType eType, EventCallbackFunc callback)
