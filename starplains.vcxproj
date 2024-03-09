@@ -160,6 +160,7 @@
     <ClInclude Include="src\ECS\Event.h" />
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Entity.h" />
+    <ClInclude Include="src\shared\logtools.h" />
     <ClInclude Include="src\shared\spLua\spLua.h" />
     <ClInclude Include="src\shared\Timer.h" />
     <ClInclude Include="src\shared\maf.h" />

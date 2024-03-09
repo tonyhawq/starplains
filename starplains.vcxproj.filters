@@ -89,5 +89,8 @@
     <ClInclude Include="src\ECS\Prototypes\PrototypeLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shared\logtools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

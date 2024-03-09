@@ -9,8 +9,13 @@
 #include "src/ECS/Systems/PrintSystem.h"
 #include "src/ECS/Systems/PrintTickSystem.h"
 
+#include "src/shared/logtools.h"
+
 int main(int argc, char* argv[])
 {
+	SP_OPEN_LOG();
+	SP_LOGF("Initialized Logging at {}", "some time?");
+	SP_FLUSH();
 	ECS::Prototypes::PrototypeLoader loader;
 	loader.loadContent();
 	ECS::World world;
@@ -26,5 +31,6 @@ int main(int argc, char* argv[])
 	ECS::Entity* ent = world.createEntity();
 	std::shared_ptr<ECS::Component> comp = world.addComponentToEntity(ent, std::make_shared<ECS::Components::PrintTickComponent>(), ECS::Components::PrintTickComponent::type);
 	world.update(); // calls on_tick events
+	SP_CLOSE_LOG();
 	return 0;
 }
