@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "Event.h"
+#include "Prototypes/PrototypeLoader.h"
 #include "../shared/Timer.h"
 
 namespace ECS
@@ -21,10 +22,12 @@ namespace ECS
 	{
 	public:
 		World();
-
-		Entity* createEntity();
+		
+		Entity& createPrototype(const Prototypes::EntityPrototype& prototype);
 		// don't hold onto this pointer, no guarantees where it'll end up
-		std::shared_ptr<Component> addComponentToEntity(Entity* entity, std::shared_ptr<Component> component, ComponentType cType);
+		Entity& createEntity();
+
+		std::shared_ptr<Component> addComponentToEntity(Entity& entity, std::shared_ptr<Component> component, ComponentType cType);
 		
 		const std::unordered_map<UUID_t, Entity*>& getEntitiesOwning(ComponentType cType);
 

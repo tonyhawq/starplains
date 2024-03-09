@@ -8,7 +8,7 @@ ECS::World::World()
 }
 
 
-ECS::Entity* ECS::World::createEntity()
+ECS::Entity& ECS::World::createEntity()
 {
 	if (!this->list)
 	{
@@ -20,15 +20,15 @@ ECS::Entity* ECS::World::createEntity()
 		this->list = new Entity(this, currentUUID++);
 		this->list->next = next;
 	}
-	return this->list;
+	return *(this->list);
 }
 
 #include "Components/PrintComponent.h"
 
-std::shared_ptr<ECS::Component> ECS::World::addComponentToEntity(Entity* entity, std::shared_ptr<Component> component, ComponentType cType)
+std::shared_ptr<ECS::Component> ECS::World::addComponentToEntity(Entity& entity, std::shared_ptr<Component> component, ComponentType cType)
 {
-	entity->components[cType] = component;
-	this->componentsByOwner[cType][entity->id()] = entity;
+	entity.components[cType] = component;
+	this->componentsByOwner[cType][entity.id()] = &entity;
 	return component;
 }
 

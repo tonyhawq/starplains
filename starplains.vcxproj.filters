@@ -42,6 +42,9 @@
     <ClCompile Include="src\ECS\Prototypes\PrototypeLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ECS\Prototypes\LoaderPackages\InheritBase.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\shared\maf.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\shared\logtools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\Prototypes\LoaderPackages\blob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

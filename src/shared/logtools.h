@@ -7,8 +7,8 @@
 
 namespace logtools
 {
-	std::ofstream defaultLog;
-	Timer time;
+	static std::ofstream defaultLog;
+	static Timer time;
 
 	// courtesy of https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
 
