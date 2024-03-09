@@ -12,6 +12,13 @@ void ECS::Prototypes::PrototypeLoader::loadContent()
 		printf("%s\n", lua_tostring(lua.L, -1));
 		lua_pop(lua.L, 1);
 	}
+	lua_getglobal(lua.L, "data");
+	lua_pushstring(lua.L, "internal");
+	lua_gettable(lua.L, -2);
+	sp_iterate_table(lua.L)
+	{
+
+	}
 } 
 
 const ECS::Entity* ECS::Prototypes::PrototypeLoader::getPrototype(size_t id)

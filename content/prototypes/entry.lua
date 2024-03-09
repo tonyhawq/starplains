@@ -1,3 +1,6 @@
+-- this file is required to be here but other folder structure
+-- is not regulated
+
 print("hello from entry.lua!")
 
 data:add({
@@ -5,8 +8,7 @@ data:add({
         name = "PrototypeOne",
         components =
         {
-            {
-                name = "PrintComponent",
+            Print = {
                 string = "Hello World!",
             }
         }
@@ -15,9 +17,7 @@ data:add({
         name = "PrototypeTwo",
         components =
         {
-            {
-                name = "PrintTickComponent",
-            }
+            PrintTick = {}
         }
     }
 })
